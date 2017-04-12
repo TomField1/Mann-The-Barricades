@@ -1,0 +1,47 @@
+versioninfo
+{
+	"editorversion" "400"
+	"editorbuild" "6117"
+	"mapversion" "203"
+	"formatversion" "100"
+	"prefab" "1"
+}
+viewsettings
+{
+	"bSnapToGrid" "1"
+	"bShowGrid" "1"
+	"bShowLogicalGrid" "0"
+	"nGridSpacing" "64"
+	"bShow3DGrid" "0"
+}
+world
+{
+	"id" "84161"
+	"mapversion" "203"
+	"classname" "worldspawn"
+	"detailmaterial" "detail/detailsprites_2fort"
+	"detailvbsp" "detail_2fort.vbsp"
+	"maxpropscreenwidth" "-1"
+	"skyname" "sky_tf2_04"
+}
+entity
+{
+	"id" "84162"
+	"classname" "team_train_watcher"
+	"hud_min_speed_level_1" "1"
+	"hud_min_speed_level_2" "60"
+	"hud_min_speed_level_3" "80"
+	"speed_forward_modifier" "1"
+	"TeamNum" "2"
+	"train" "build_train_&i"
+	"train_can_recede" "1"
+	"origin" "0 0 0"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This generates the glow by persuading the game that the prop parented to the tracktrain is a payload."
+		"logicalpos" "[0 0]"
+	}
+}

@@ -1,0 +1,880 @@
+versioninfo
+{
+	"editorversion" "400"
+	"editorbuild" "7417"
+	"mapversion" "214"
+	"formatversion" "100"
+	"prefab" "1"
+}
+viewsettings
+{
+	"bSnapToGrid" "1"
+	"bShowGrid" "1"
+	"bShowLogicalGrid" "0"
+	"nGridSpacing" "8"
+	"bShow3DGrid" "0"
+}
+world
+{
+	"id" "83714"
+	"mapversion" "214"
+	"classname" "worldspawn"
+	"detailmaterial" "detail/detailsprites_2fort"
+	"detailvbsp" "detail_2fort.vbsp"
+	"maxpropscreenwidth" "-1"
+	"skyname" "sky_tf2_04"
+}
+entity
+{
+	"id" "83715"
+	"classname" "math_counter"
+	"max" "0"
+	"min" "0"
+	"startvalue" "0"
+	"targetname" "build_counter_wavefailed"
+	connections
+	{
+		"OnGetValue" "build_counter_master,SetValue,,0,-1"
+	}
+	"origin" "0 64 80"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This object allows for the cart glows."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83717"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"targetname" "build_relay_wavestart"
+	connections
+	{
+		"OnTrigger" "build_wavestart_*,Trigger,,0,-1"
+		"OnTrigger" "build_explain_blank,Display,,0,-1"
+		"OnTrigger" "build_nav_interface_relay,Trigger,,0,-1"
+	}
+	"origin" "0 48 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "Trigger this relayt whenever a wave starts, It controls hiding the holograms."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83719"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"targetname" "build_relay_wavefailed"
+	connections
+	{
+		"OnTrigger" "build_waveend_replace_*,Trigger,,0,-1"
+		"OnTrigger" "build_counter_wavefailed,GetValue,,0,-1"
+		"OnTrigger" "build_nav_interface_relay,Trigger,,0,-1"
+	}
+	"origin" "0 48 80"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "Trigger this relay whenever a wave ends in failure. It returns things to the state they were in at the start of that wave."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83721"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"targetname" "build_relay_wavepassed"
+	connections
+	{
+		"OnTrigger" "build_counter_master,GetValue,,0,-1"
+		"OnTrigger" "build_waveend_success_*,Trigger,,0,-1"
+		"OnTrigger" "build_waveend_replace_*,Trigger,,0.05,-1"
+		"OnTrigger" "build_explain,Display,,0,-1"
+	}
+	"origin" "0 48 64"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "Trigger this relay whenever a wave ends in success. It consolidates the changes made at the start of the wave, and reenables the unbuilt holograms."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83723"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"targetname" "build_point_added"
+	connections
+	{
+		"OnUser1" "build_counter_master,Add,1,0.02,-1"
+		"OnUser2" "build_counter_master,Add,2,0.02,-1"
+		"OnUser3" "build_counter_master,Add,3,0.02,-1"
+		"OnUser4" "build_counter_master,Add,4,0.02,-1"
+		"OnUser4" "build_breaker_*,Enable,4,0,-1"
+		"OnUser3" "build_breaker_*,Enable,3,0,-1"
+		"OnUser2" "build_breaker_*,Enable,2,0,-1"
+		"OnUser1" "build_breaker_*,Enable,,0,-1"
+	}
+	"origin" "0 24 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This relay can be used to add Build Points. Fire user 1 to add 1 point, 2  for 2 points, 3 for 3, and so on,"
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83725"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999"
+	"message" "Build Points: 0"
+	"targetname" "build_counter_hud_0"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 8 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 500]"
+	}
+}
+entity
+{
+	"id" "83727"
+	"classname" "logic_case"
+	"Case01" "1"
+	"Case02" "2"
+	"Case03" "3"
+	"Case04" "4"
+	"Case05" "5"
+	"Case06" "6"
+	"Case07" "7"
+	"Case08" "8"
+	"Case09" "9"
+	"Case10" "10"
+	"Case11" "11"
+	"Case12" "12"
+	"Case13" "13"
+	"Case14" "14"
+	"Case15" "15"
+	"Case16" "0"
+	"targetname" "build_case_master"
+	connections
+	{
+		"OnCase06" "build_counter_hud_6,Display,,0,-1"
+		"OnCase16" "build_counter_hud_0,Display,,0,-1"
+		"OnCase02" "build_counter_hud_2,Display,,0,-1"
+		"OnCase03" "build_counter_hud_3,Display,,0,-1"
+		"OnCase04" "build_counter_hud_4,Display,,0,-1"
+		"OnCase05" "build_counter_hud_5,Display,,0,-1"
+		"OnCase07" "build_counter_hud_7,Display,,0,-1"
+		"OnCase08" "build_counter_hud_8,Display,,0,-1"
+		"OnCase09" "build_counter_hud_9,Display,,0,-1"
+		"OnCase10" "build_counter_hud_10,Display,,0,-1"
+		"OnCase11" "build_counter_hud_11,Display,,0,-1"
+		"OnCase12" "build_counter_hud_12,Display,,0,-1"
+		"OnCase13" "build_counter_hud_13,Display,,0,-1"
+		"OnCase14" "build_counter_hud_14,Display,,0,-1"
+		"OnCase01" "build_counter_hud_1,Display,,0,-1"
+		"OnCase15" "build_counter_hud_15,Display,,0,-1"
+	}
+	"origin" "0 -8 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This controls the portion of the HUD that shows the number of available points. Note that Case 16 = 0 (so all the others match up.)"
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83729"
+	"classname" "math_counter"
+	"max" "15"
+	"min" "0"
+	"startvalue" "15"
+	"targetname" "build_counter_master"
+	connections
+	{
+		"OnHitMin" "build_breaker_*,Disable,,0,-1"
+		"OutValue" "build_case_master,InValue,,0,-1"
+		"OnGetValue" "build_counter_wavefailed,SetValue,,0,-1"
+		"OutValue" "build_beep_&i,PlaySound,,0,-1"
+		"OutValue" "build_case_master,InValue,,0,-1"
+	}
+	"origin" "0 -24 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This counts the number of build points available to spend. If you want to increase the maximum above 15, you'll need to add more logic_cases or use them in a cleverer way than i can think of."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83731"
+	"classname" "logic_auto"
+	"spawnflags" "1"
+	connections
+	{
+		"OnMapSpawn" "build_counter_master,SetValue,4,0,-1"
+		"OnMapSpawn" "build_counter_master,GetValue,,0.02,-1"
+		"OnMapSpawn" "build_explain,Display,,0.02,-1"
+	}
+	"origin" "0 -40 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "Use this relay to start the wave with the right amount of build points: either set the value of the counter_master or fire the points_added."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83733"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 5"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_5"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 24 64"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83735"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 10"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_10"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 24 48"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83737"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 15"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_15"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 24 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83739"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 4"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_4"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 8 64"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83741"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 9"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_9"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 8 48"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83743"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 14"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_14"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 8 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83745"
+	"classname" "game_text"
+	"channel" "1"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "10"
+	"spawnflags" "1"
+	"targetname" "build_explain_blank"
+	"x" "-1"
+	"y" "0.8"
+	"origin" "0 8 8"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This object replaces the other game_texts that explain the map, because they can't be disabled and cannot be killed."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83747"
+	"classname" "game_text"
+	"channel" "1"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "10"
+	"message" "You have no build points left!"
+	"spawnflags" "1"
+	"targetname" "build_explain_none"
+	"x" "-1"
+	"y" "0.8"
+	"origin" "0 -8 8"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This is displayed whenever a player attempts to spend a build point: if there are still build points, it is replaced immediately, if not it stays for ten seconds and is then replaced."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83749"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 3"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_3"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -8 64"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83751"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 8"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_8"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -8 48"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83753"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 13"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_13"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -8 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83755"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 12"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_12"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -24 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83757"
+	"classname" "game_text"
+	"channel" "1"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "9999999"
+	"message" "Attack a holographic object to spend a build point on it."
+	"spawnflags" "1"
+	"targetname" "build_explain"
+	"x" "-1"
+	"y" "0.8"
+	"origin" "0 -24 8"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This is the brief explanatory text that explains how the build points mechanic works. It only displays between waves."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83759"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 2"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_2"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -24 64"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83761"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 7"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_7"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -24 48"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83763"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 1"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_1"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -40 64"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83765"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 6"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_6"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -40 48"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83767"
+	"classname" "game_text"
+	"channel" "3"
+	"color" "255 255 255"
+	"color2" "255 255 255"
+	"effect" "0"
+	"fadein" "0"
+	"fadeout" "0"
+	"fxtime" "0.25"
+	"holdtime" "99999999"
+	"message" "Build Points: 11"
+	"spawnflags" "1"
+	"targetname" "build_counter_hud_11"
+	"x" "0.85"
+	"y" "0.1"
+	"origin" "0 -40 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "These objects display the build points portion of the HUD. If you want to increase the maximum build points, you'll need more game_texts. The colour may need to be changed, depending on the colour of your map."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83795"
+	"classname" "ambient_generic"
+	"cspinup" "0"
+	"fadeinsecs" "0"
+	"fadeoutsecs" "0"
+	"health" "10"
+	"lfomodpitch" "0"
+	"lfomodvol" "0"
+	"lforate" "0"
+	"lfotype" "0"
+	"message" "RD.FinaleBeep"
+	"pitch" "100"
+	"pitchstart" "100"
+	"preset" "0"
+	"radius" "1250"
+	"spawnflags" "49"
+	"spindown" "0"
+	"spinup" "0"
+	"targetname" "build_beep_&i"
+	"volstart" "0"
+	"origin" "0 -64 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This plays a beep when a build point is spent."
+		"logicalpos" "[0 7500]"
+	}
+}
+entity
+{
+	"id" "83825"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"targetname" "wave_finished_relay"
+	connections
+	{
+		"OnTrigger" "build_relay_wavepassed,Trigger,,0,-1"
+	}
+	"origin" "0 88 64"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[1000 4000]"
+	}
+}
+entity
+{
+	"id" "83827"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"targetname" "wave_start_relay"
+	connections
+	{
+		"OnTrigger" "build_relay_wavestart,Trigger,,0,-1"
+	}
+	"origin" "0 88 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[500 -1268]"
+	}
+}
+entity
+{
+	"id" "83897"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"targetname" "cap_destroy_anim_gate_relay"
+	connections
+	{
+		"OnTrigger" "build_relay_wavestart,Trigger,,0,-1"
+	}
+	"origin" "0 88 80"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[500 -1268]"
+	}
+}
+entity
+{
+	"id" "83940"
+	"classname" "tf_point_nav_interface"
+	"targetname" "build_nav_interface"
+	"origin" "0 -88 80"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+entity
+{
+	"id" "83942"
+	"classname" "logic_relay"
+	"spawnflags" "0"
+	"StartDisabled" "0"
+	"targetname" "build_nav_interface_relay"
+	connections
+	{
+		"OnTrigger" "build_nav_interface,RecomputeBlockers,,0,-1"
+		"OnTrigger" "build_nav_interface,RecomputeBlockers,,2,-1"
+		"OnTrigger" "build_nav_interface,RecomputeBlockers,,3,-1"
+		"OnTrigger" "build_nav_interface,RecomputeBlockers,,4,-1"
+		"OnTrigger" "build_nav_interface,RecomputeBlockers,,1,-1"
+	}
+	"origin" "0 -88 96"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"comments" "This rebuilds the blocked section of the navmesh at the start and failure of each wave. Remember to mark the meshes you want updated - see the README for more."
+		"logicalpos" "[0 0]"
+	}
+}
